@@ -32,11 +32,18 @@
         [self setStarImage:star highlightedStarImage:highlightedStar];
 		[self setImageEdgeInsets:UIEdgeInsetsMake(0, 0, kEdgeInsetBottom, 0)];
 		[self setBackgroundColor:[UIColor clearColor]];
-        if (index == 0) {
-   	        [self setAccessibilityLabel:@"1 star"];
-        } else {
-   	        [self setAccessibilityLabel:[NSString stringWithFormat:@"%d stars", index+1]];   
-        }
+	if (fractionalParts > 0) {
+		if (((index + 1) / (float)fractionalParts) == 1.0)
+			[self setAccessibilityLabel:[NSString stringWithFormat:@"1 %@", NSLocalizedString(@"star", nil)]];
+		else
+			[self setAccessibilityLabel:[NSString stringWithFormat:@"%.1f %@", ((index + 1) / (float)fractionalParts), NSLocalizedString(@"stars", nil)]];
+	} else {
+	        if (index == 0) {
+   		        [self setAccessibilityLabel:@"1 star"];
+        	} else {
+   		        [self setAccessibilityLabel:[NSString stringWithFormat:@"%d stars", index+1]];
+        	}
+	}
 	}
 	return self;
 }
