@@ -28,7 +28,7 @@
 	star = [UIImage imageNamed:@"star.png"];
 	highlightedStar = [UIImage imageNamed:@"star_highlighted.png"];        
 	for (int i=0; i<numberOfStars; i++) {
-		DLStarView *v = [[DLStarView alloc] initWithDefault:self.star highlighted:self.highlightedStar position:i allowFractions:isFractionalRatingEnabled];
+		DLStarView *v = [[DLStarView alloc] initWithDefault:self.star highlighted:self.highlightedStar position:i fractionalParts:fractionalParts];
 		[self addSubview:v];
 	}
 }
@@ -38,7 +38,7 @@
     if (self) {
 		numberOfStars = kDefaultNumberOfStars;
         if (isFractionalRatingEnabled)
-            numberOfStars *=kNumberOfFractions;
+            numberOfStars *=kDefaultNumberOfFractions;
 		[self setupView];
     }
     return self;
@@ -49,20 +49,22 @@
 	if (self) {
 		numberOfStars = kDefaultNumberOfStars;
         if (isFractionalRatingEnabled)
-            numberOfStars *=kNumberOfFractions;
+            numberOfStars *=kDefaultNumberOfFractions;
         [self setupView];
 
 	}
 	return self;
 }
 
-- (id)initWithFrame:(CGRect)frame andStars:(NSUInteger)_numberOfStars isFractional:(BOOL)isFract{
+- (id)initWithFrame:(CGRect)frame andStars:(NSUInteger)_numberOfStars fractionalParts:(NSUInteger)_fractionalParts{
 	self = [super initWithFrame:frame];
 	if (self) {
-        isFractionalRatingEnabled = isFract;
+        isFractionalRatingEnabled = (_fractionalParts > 0);
 		numberOfStars = _numberOfStars;
-        if (isFractionalRatingEnabled)
-            numberOfStars *=kNumberOfFractions;
+        if (isFractionalRatingEnabled) {
+		fractionalParts = _fractionalParts;
+            numberOfStars *=fractionalParts;
+	}
 		[self setupView];
 	}
 	return self;
@@ -179,7 +181,7 @@
 
 - (void)setRating:(float)_rating {
     if (isFractionalRatingEnabled) {
-        _rating *=kNumberOfFractions;
+        _rating *=fractionalParts;
     }
 	[self disableStarsDownTo:0];
 	currentIdx = (int)_rating-1;
@@ -188,7 +190,7 @@
 
 - (float)rating {
     if (isFractionalRatingEnabled) {
-        return (float)(currentIdx+1)/kNumberOfFractions;
+        return (float)(currentIdx+1)/fractionalParts;
     }
 	return (NSUInteger)currentIdx+1;
 }
