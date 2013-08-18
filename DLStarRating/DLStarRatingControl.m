@@ -37,8 +37,11 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
 		numberOfStars = kDefaultNumberOfStars;
-        if (isFractionalRatingEnabled)
-            numberOfStars *=kDefaultNumberOfFractions;
+	    isFractionalRatingEnabled = YES;
+	    if (isFractionalRatingEnabled) {
+		    fractionalParts = 2;
+		    numberOfStars *=fractionalParts;
+	    }
 		[self setupView];
     }
     return self;

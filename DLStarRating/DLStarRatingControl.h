@@ -13,7 +13,7 @@
 #import <UIKit/UIKit.h>
 
 #define kDefaultNumberOfStars 5
-#define kDefaultNumberOfFractions 10
+#define kDefaultNumberOfFractions 2
 
 @protocol DLStarRatingDelegate;
 
