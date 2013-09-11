@@ -74,7 +74,7 @@
 }
 
 - (void)layoutSubviews {
-	for (int i=0; i < numberOfStars; i++) {
+	for (NSInteger i=0; i < numberOfStars; i++) {
 		[(DLStarView*)[self subViewWithTag:i] centerIn:self.frame with:numberOfStars];
 	}
 }
@@ -82,7 +82,7 @@
 #pragma mark -
 #pragma mark Customization
 
-- (void)setStar:(UIImage*)defaultStarImage highlightedStar:(UIImage*)highlightedStarImage atIndex:(int)index {
+- (void)setStar:(UIImage*)defaultStarImage highlightedStar:(UIImage*)highlightedStarImage atIndex:(NSInteger)index {
     DLStarView *selectedStar = (DLStarView*)[self subViewWithTag:index];
     
     // check if star exists
@@ -99,7 +99,7 @@
 #pragma mark Touch Handling
 
 - (UIButton*)starForPoint:(CGPoint)point {
-	for (int i=0; i < numberOfStars; i++) {
+	for (NSInteger i=0; i < numberOfStars; i++) {
 		if (CGRectContainsPoint([self subViewWithTag:i].frame, point)) {
 			return (UIButton*)[self subViewWithTag:i];
 		}
@@ -107,23 +107,23 @@
 	return nil;
 }
 
-- (void)disableStarsDownToExclusive:(int)idx {
-	for (int i=numberOfStars; i > idx; --i) {
+- (void)disableStarsDownToExclusive:(NSInteger)idx {
+	for (NSInteger i=numberOfStars; i > idx; --i) {
 		UIButton *b = (UIButton*)[self subViewWithTag:i];
 		b.highlighted = NO;
 	}
 }
 
-- (void)disableStarsDownTo:(int)idx {
-	for (int i=numberOfStars; i >= idx; --i) {
+- (void)disableStarsDownTo:(NSInteger)idx {
+	for (NSInteger i=numberOfStars; i >= idx; --i) {
 		UIButton *b = (UIButton*)[self subViewWithTag:i];
 		b.highlighted = NO;
 	}
 }
 
 
-- (void)enableStarsUpTo:(int)idx {
-	for (int i=0; i <= idx; i++) {
+- (void)enableStarsUpTo:(NSInteger)idx {
+	for (NSInteger i=0; i <= idx; i++) {
 		UIButton *b = (UIButton*)[self subViewWithTag:i];
 		b.highlighted = YES;
 	}
@@ -133,7 +133,7 @@
 	CGPoint point = [touch locationInView:self];	
 	UIButton *pressedButton = [self starForPoint:point];
 	if (pressedButton) {
-		int idx = pressedButton.tag;
+		NSInteger idx = pressedButton.tag;
 		if (pressedButton.highlighted) {
 			[self disableStarsDownToExclusive:idx];
 		} else {
@@ -153,7 +153,7 @@
 	
 	UIButton *pressedButton = [self starForPoint:point];
 	if (pressedButton) {
-		int idx = pressedButton.tag;
+		NSInteger idx = pressedButton.tag;
 		UIButton *currentButton = (UIButton*)[self subViewWithTag:currentIdx];
 		
 		if (idx < currentIdx) {
@@ -182,18 +182,18 @@
 #pragma mark -
 #pragma mark Rating Property
 
-- (void)setRating:(float)_rating {
+- (void)setRating:(CGFloat)_rating {
     if (isFractionalRatingEnabled) {
         _rating *=fractionalParts;
     }
 	[self disableStarsDownTo:0];
-	currentIdx = (int)_rating-1;
+	currentIdx = (NSInteger)_rating-1;
 	[self enableStarsUpTo:currentIdx];
 }
 
-- (float)rating {
+- (CGFloat)rating {
     if (isFractionalRatingEnabled) {
-        return (float)(currentIdx+1)/fractionalParts;
+        return (CGFloat)(currentIdx+1)/fractionalParts;
     }
 	return (NSUInteger)currentIdx+1;
 }

@@ -18,8 +18,8 @@
 	NSUInteger fractionalParts;
 }
 
-- (id)initWithDefault:(UIImage*)star highlighted:(UIImage*)highlightedStar position:(int)index fractionalParts:(NSUInteger)fractionalParts;
-- (void)centerIn:(CGRect)_frame with:(int)numberOfStars;
+- (id)initWithDefault:(UIImage*)star highlighted:(UIImage*)highlightedStar position:(NSInteger)index fractionalParts:(NSUInteger)fractionalParts;
+- (void)centerIn:(CGRect)_frame with:(NSInteger)numberOfStars;
 - (void)setStarImage:(UIImage*)starImage highlightedStarImage:(UIImage*)highlightedImage;
 - (UIImage *)croppedImage:(UIImage*)image;
 @end

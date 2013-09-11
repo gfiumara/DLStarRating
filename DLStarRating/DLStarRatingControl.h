@@ -19,8 +19,8 @@
 
 @interface DLStarRatingControl : UIControl {
 	NSUInteger fractionalParts;
-	int numberOfStars;
-	int currentIdx;
+	NSInteger numberOfStars;
+	NSInteger currentIdx;
 	UIImage *star;
 	UIImage *highlightedStar;
     BOOL isFractionalRatingEnabled;
@@ -28,11 +28,11 @@
 
 - (id)initWithFrame:(CGRect)frame;
 - (id)initWithFrame:(CGRect)frame andStars:(NSUInteger)_numberOfStars fractionalParts:(NSUInteger)_fractionalParts;
-- (void)setStar:(UIImage*)defaultStarImage highlightedStar:(UIImage*)highlightedStarImage atIndex:(int)index;
+- (void)setStar:(UIImage*)defaultStarImage highlightedStar:(UIImage*)highlightedStarImage atIndex:(NSInteger)index;
 
 @property (strong,nonatomic) UIImage *star;
 @property (strong,nonatomic) UIImage *highlightedStar;
-@property (nonatomic) float rating;
+@property (nonatomic) CGFloat rating;
 @property (assign,nonatomic) IBOutlet id<DLStarRatingDelegate> delegate;
 @property (nonatomic,assign) BOOL isFractionalRatingEnabled;
 
@@ -40,6 +40,6 @@
 
 @protocol DLStarRatingDelegate
 
--(void)newRating:(DLStarRatingControl *)control :(float)rating;
+-(void)newRating:(DLStarRatingControl *)control :(CGFloat)rating;
 
 @end
